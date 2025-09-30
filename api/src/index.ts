@@ -21,10 +21,12 @@ app.get('/list', (req: Request, res: Response) => {
   
   const playlistId = process.env.PLAYLIST_ID || 'PLcetZ6gSk968DQPgqGfu6GOJ4yEoQAu4h'
   
+  const numberOfVideos = process.env.NUMBER_OF_VIDEOS || 10
+  
   const options = {
     hostname: 'www.googleapis.com',
     port: 443,
-    path: `/youtube/v3/playlistItems?playlistId=${playlistId}&key=${apiKey}&part=snippet,contentDetails&maxResults=10`,
+    path: `/youtube/v3/playlistItems?playlistId=${playlistId}&key=${apiKey}&part=snippet,contentDetails&maxResults=${numberOfVideos}`,
     method: 'GET'
   }
 
