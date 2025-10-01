@@ -7,12 +7,12 @@ import mongoose from "mongoose";
 dotenv.config()
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 const MONGO_URI = process.env.MONGODB_URI || "";
 
 mongoose.connect(MONGO_URI)
-  .then(() => console.warn("✅ MongoDB connected!"))
+  .then(() => console.log("✅ MongoDB connected!"))
   .catch((err) => console.error("❌ Error connecting to MongoDB:", err));
 
 app.get('/', (req: Request, res: Response) => {
