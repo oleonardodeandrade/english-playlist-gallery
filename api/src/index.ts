@@ -2,11 +2,18 @@ import express from 'express'
 import { Request, Response } from 'express'
 import https from 'https'
 import dotenv from 'dotenv'
+import mongoose from "mongoose";
 
 dotenv.config()
 
 const app = express()
 const port = 3000
+
+const MONGO_URI = process.env.MONGODB_URI || "";
+
+mongoose.connect(MONGO_URI)
+  .then(() => console.warn("✅ MongoDB connected!"))
+  .catch((err) => console.error("❌ Error connecting to MongoDB:", err));
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
