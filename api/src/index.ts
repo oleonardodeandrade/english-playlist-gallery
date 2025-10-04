@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import helmet from 'helmet';
 import { env } from './config/env';
 import routes from './routes';
 import { corsMiddleware } from './middlewares/cors';
@@ -7,6 +8,7 @@ import { errorHandler, notFoundHandler } from './middlewares/errorHandler';
 
 const app = express();
 
+app.use(helmet());
 app.use(corsMiddleware);
 app.use(logger);
 app.use(express.json());

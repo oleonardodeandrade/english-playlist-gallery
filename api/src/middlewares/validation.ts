@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { z, ZodError, ZodSchema } from 'zod';
+import { z, ZodError } from 'zod';
 import { ApiError } from './errorHandler';
 
 export const schemas = {
@@ -30,7 +30,7 @@ export const schemas = {
   }),
 };
 
-export const validate = (schema: ZodSchema, source: 'body' | 'query' | 'params' = 'body') => {
+export const validate = (schema: z.ZodType, source: 'body' | 'query' | 'params' = 'body') => {
   return (req: Request, _res: Response, next: NextFunction): void => {
     try {
       const data = req[source] as unknown;
