@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Backend API for English Playlist Gallery, fetching YouTube playlists and exposing video data via REST endpoints.",
   "license": "MIT",
   "author": "Leonardo <leonardoh.deandrade@gmail.com>",
