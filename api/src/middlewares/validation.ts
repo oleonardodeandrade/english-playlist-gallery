@@ -43,11 +43,10 @@ export const validate = (schema: z.ZodType, source: 'body' | 'query' | 'params' 
       }
 
       next();
-    } catch (error) {
+    } catch (error: unknown) {
       if (error instanceof ZodError) {
-        const errors = error.issues;
-        const errorMessage: string = errors
-          .map((err: z.core.$ZodIssue) => `${err.path.join('.')}: ${err.message}`)
+        const errorMessage: string = error.issues
+          .map((issue) => `${issue.path.join('.')}: ${issue.message}`)
           .join(', ');
 
         next(new ApiError(400, `Validation error: ${errorMessage}`));
