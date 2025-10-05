@@ -15,7 +15,8 @@ export class ApiError extends Error {
 export const errorHandler = (
   err: Error | ApiError,
   req: Request,
-  res: Response
+  res: Response,
+  _next: NextFunction
 ): void => {
   let statusCode = 500;
   let message = 'Internal Server Error';

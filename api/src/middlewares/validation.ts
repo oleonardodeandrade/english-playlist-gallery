@@ -36,7 +36,11 @@ export const validate = (schema: z.ZodType, source: 'body' | 'query' | 'params' 
       const data = req[source] as unknown;
       const validated = schema.parse(data);
 
-      (req[source] as Record<string, unknown>) = validated as Record<string, unknown>;
+      if (source === 'query') {
+        Object.assign(req.query, validated);
+      } else {
+        (req[source] as Record<string, unknown>) = validated as Record<string, unknown>;
+      }
 
       next();
     } catch (error) {
