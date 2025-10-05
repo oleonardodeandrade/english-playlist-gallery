@@ -3,8 +3,6 @@ import app from '../../app';
 import { youtubeService } from '../../services/youtube.service';
 import { YouTubePlaylistResponse } from '../../types/youtube.types';
 
-jest.mock('../../services/youtube.service');
-
 describe('Video Routes', () => {
   const mockPlaylistResponse: YouTubePlaylistResponse = {
     kind: 'youtube#playlistItemListResponse',
@@ -46,11 +44,12 @@ describe('Video Routes', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.restoreAllMocks();
   });
 
   describe('GET /api/videos/list', () => {
     it('should return videos successfully with default parameters', async () => {
-      (youtubeService.fetchPlaylistItems as jest.Mock).mockResolvedValue(mockPlaylistResponse);
+      jest.spyOn(youtubeService, 'fetchPlaylistItems').mockResolvedValue(mockPlaylistResponse);
 
       const response = await request(app).get('/api/videos/list');
 
@@ -61,7 +60,7 @@ describe('Video Routes', () => {
 
     it('should return videos with custom playlistId', async () => {
       const customPlaylistId = 'custom-playlist-id';
-      (youtubeService.fetchPlaylistItems as jest.Mock).mockResolvedValue(mockPlaylistResponse);
+      jest.spyOn(youtubeService, 'fetchPlaylistItems').mockResolvedValue(mockPlaylistResponse);
 
       const response = await request(app).get(`/api/videos/list?playlistId=${customPlaylistId}`);
 
@@ -74,7 +73,7 @@ describe('Video Routes', () => {
 
     it('should return videos with custom maxResults', async () => {
       const customMaxResults = 25;
-      (youtubeService.fetchPlaylistItems as jest.Mock).mockResolvedValue(mockPlaylistResponse);
+      jest.spyOn(youtubeService, 'fetchPlaylistItems').mockResolvedValue(mockPlaylistResponse);
 
       const response = await request(app).get(`/api/videos/list?maxResults=${customMaxResults}`);
 
@@ -94,7 +93,7 @@ describe('Video Routes', () => {
     });
 
     it('should handle service errors gracefully', async () => {
-      (youtubeService.fetchPlaylistItems as jest.Mock).mockRejectedValue(
+      jest.spyOn(youtubeService, 'fetchPlaylistItems').mockRejectedValue(
         new Error('YouTube API error')
       );
 

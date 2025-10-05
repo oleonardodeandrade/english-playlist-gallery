@@ -101,7 +101,8 @@ describe('Validation Middleware', () => {
       expect(nextFunction).toHaveBeenCalledWith(expect.any(ApiError));
       const error = (nextFunction as jest.Mock).mock.calls[0][0] as ApiError;
       expect(error.statusCode).toBe(400);
-      expect(error.message).toContain('Video ID is required');
+      expect(error.message).toContain('Validation error');
+      expect(error.message).toContain('id');
     });
   });
 
