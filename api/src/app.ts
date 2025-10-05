@@ -1,9 +1,11 @@
 import express, { Request, Response } from 'express';
 import helmet from 'helmet';
+import swaggerUi from 'swagger-ui-express';
 import routes from './routes';
 import { corsMiddleware } from './middlewares/cors';
 import { logger } from './middlewares/logger';
 import { errorHandler, notFoundHandler } from './middlewares/errorHandler';
+import swaggerDocument from './config/swagger.json';
 
 const app = express();
 
@@ -21,6 +23,8 @@ app.get('/', (req: Request, res: Response) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api', routes);
 
