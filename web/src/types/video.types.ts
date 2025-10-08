@@ -1,26 +1,57 @@
-export interface Video {
-  _id: string;
+export interface VideoThumbnail {
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface VideoThumbnails {
+  default: VideoThumbnail;
+  medium: VideoThumbnail;
+  high: VideoThumbnail;
+  standard?: VideoThumbnail;
+  maxres?: VideoThumbnail;
+}
+
+export interface VideoResourceId {
+  kind: string;
   videoId: string;
+}
+
+export interface VideoSnippet {
+  publishedAt: string;
+  channelId: string;
   title: string;
   description: string;
-  thumbnailUrl: string;
-  publishedAt: Date;
+  thumbnails: VideoThumbnails;
+  channelTitle: string;
+  playlistId: string;
   position: number;
+  resourceId: VideoResourceId;
+  videoOwnerChannelTitle: string;
+  videoOwnerChannelId: string;
 }
 
-export interface ApiResponse<T> {
-  success: boolean;
-  data: T;
-  message?: string;
+export interface VideoContentDetails {
+  videoId: string;
+  videoPublishedAt: string;
 }
 
-export interface PaginatedResponse<T> {
-  success: boolean;
-  data: T[];
-  pagination: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  };
+export interface VideoPlaylistItem {
+  kind: string;
+  etag: string;
+  id: string;
+  snippet: VideoSnippet;
+  contentDetails: VideoContentDetails;
+}
+
+export interface VideoPageInfo {
+  totalResults: number;
+  resultsPerPage: number;
+}
+
+export interface VideoPlaylistResponse {
+  kind: string;
+  etag: string;
+  items: VideoPlaylistItem[];
+  pageInfo: VideoPageInfo;
 }

@@ -1,12 +1,14 @@
-import { Video } from '../types/video.types';
+import { useVideo } from '../hooks/useVideo';
+import type { VideoPlaylistItem } from '../types/video.types';
 
 interface VideoCardProps {
-  video: Video;
-  onClick?: () => void;
+  video: VideoPlaylistItem;
 }
 
-export const VideoCard = ({ video, onClick }: VideoCardProps) => {
-  const formattedDate = new Date(video.publishedAt).toLocaleDateString('pt-BR', {
+export const VideoCard = ({ video }: VideoCardProps) => {
+  const { selectedVideo, setSelectedVideo } = useVideo();
+  const isSelected = selectedVideo?.id === video.id;
+  const formattedDate = new Date(video.contentDetails.videoPublishedAt).toLocaleDateString('pt-BR', {
     day: '2-digit',
     month: 'short',
     year: 'numeric',
@@ -14,19 +16,21 @@ export const VideoCard = ({ video, onClick }: VideoCardProps) => {
 
   return (
     <div
-      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-      onClick={onClick}
+      className={`bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer ${
+        isSelected ? 'ring-4 ring-blue-500' : ''
+      }`}
+      onClick={() => setSelectedVideo(video)}
     >
       <div className="aspect-video bg-gray-100">
         <img
-          src={video.thumbnailUrl}
-          alt={video.title}
+          src={video.snippet.thumbnails.high.url}
+          alt={video.snippet.title}
           loading="lazy"
           className="w-full h-full object-cover"
         />
       </div>
       <div className="p-4">
-        <h3 className="font-semibold text-gray-900 line-clamp-2 mb-2">{video.title}</h3>
+        <h3 className="font-semibold text-gray-900 line-clamp-2 mb-2">{video.snippet.title}</h3>
         <p className="text-sm text-gray-600">{formattedDate}</p>
       </div>
     </div>
