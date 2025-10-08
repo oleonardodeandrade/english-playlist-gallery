@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { VideoList } from '../components/VideoList';
-import { Video } from '../types/video.types';
+import { VideoPlayer } from '../components/VideoPlayer';
 import { apiClient } from '../services/api';
+import type { VideoPlaylistItem } from '../types/video.types';
 
 export const Home = () => {
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [videos, setVideos] = useState<VideoPlaylistItem[]>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -13,7 +14,8 @@ export const Home = () => {
       try {
         setLoading(true);
         const data = await apiClient.fetchVideos();
-        setVideos(data);
+        console.log('Data:', data);
+        setVideos(data.items);
         setError(null);
       } catch (err) {
         console.error('Error loading videos:', err);
@@ -25,10 +27,6 @@ export const Home = () => {
 
     loadVideos();
   }, []);
-
-  const handleVideoClick = (video: Video) => {
-    console.log('Video clicked:', video);
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -47,7 +45,15 @@ export const Home = () => {
             {error}
           </div>
         )}
-        <VideoList videos={videos} loading={loading} onVideoClick={handleVideoClick} />
+
+        <div className="mb-8">
+          <VideoPlayer />
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Video Gallery</h2>
+          <VideoList videos={videos || []} loading={loading} />
+        </div>
       </main>
     </div>
   );
