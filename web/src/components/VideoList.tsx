@@ -1,13 +1,12 @@
-import { Video } from '../types/video.types';
+import type { VideoPlaylistItem } from '../types/video.types';
 import { VideoCard } from './VideoCard';
 
 interface VideoListProps {
-  videos: Video[];
+  videos: VideoPlaylistItem[];
   loading?: boolean;
-  onVideoClick?: (video: Video) => void;
 }
 
-export const VideoList = ({ videos, loading = false, onVideoClick }: VideoListProps) => {
+export const VideoList = ({ videos, loading = false }: VideoListProps) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -19,7 +18,7 @@ export const VideoList = ({ videos, loading = false, onVideoClick }: VideoListPr
     );
   }
 
-  if (videos.length === 0) {
+  if (videos?.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
@@ -45,8 +44,8 @@ export const VideoList = ({ videos, loading = false, onVideoClick }: VideoListPr
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {videos.map((video) => (
-        <VideoCard key={video._id} video={video} onClick={() => onVideoClick?.(video)} />
+      {videos?.map((video) => (
+        <VideoCard key={video.id} video={video} />
       ))}
     </div>
   );
