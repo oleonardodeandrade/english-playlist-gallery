@@ -33,7 +33,7 @@ export const VideoPlayer = () => {
     );
   }
 
-  const videoUrl = `https://www.youtube.com/watch?v=${selectedVideo.id}`;
+  const videoUrl = `https://www.youtube.com/watch?v=${selectedVideo.snippet.resourceId.videoId}`;
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
