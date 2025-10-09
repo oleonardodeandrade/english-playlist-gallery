@@ -47,7 +47,7 @@ export const Home = () => {
         )}
 
         <div className="mb-8">
-          <VideoPlayer />
+          <VideoPlayer loading={loading} />
         </div>
 
         <div>

@@ -1,8 +1,17 @@
 import ReactPlayer from 'react-player';
 import { useVideo } from '../hooks/useVideo';
+import { VideoPlayerSkeleton } from './VideoPlayerSkeleton';
 
-export const VideoPlayer = () => {
+interface VideoPlayerProps {
+  loading?: boolean;
+}
+
+export const VideoPlayer = ({ loading = false }: VideoPlayerProps) => {
   const { selectedVideo } = useVideo();
+
+  if (loading) {
+    return <VideoPlayerSkeleton />;
+  }
 
   if (!selectedVideo) {
     return (
