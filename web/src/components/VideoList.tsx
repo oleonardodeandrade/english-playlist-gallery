@@ -1,5 +1,6 @@
 import type { VideoPlaylistItem } from '../types/video.types';
 import { VideoCard } from './VideoCard';
+import { VideoCardSkeleton } from './VideoCardSkeleton';
 
 interface VideoListProps {
   videos: VideoPlaylistItem[];
@@ -9,11 +10,10 @@ interface VideoListProps {
 export const VideoList = ({ videos, loading = false }: VideoListProps) => {
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-center">
-          <div className="inline-block w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className="text-gray-600">Loading videos</p>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <VideoCardSkeleton key={index} />
+        ))}
       </div>
     );
   }
