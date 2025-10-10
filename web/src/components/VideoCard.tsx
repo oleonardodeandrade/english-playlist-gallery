@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { useVideo } from '../hooks/useVideo';
 import type { VideoPlaylistItem } from '../types/video.types';
 
@@ -8,6 +9,13 @@ interface VideoCardProps {
 export const VideoCard = ({ video }: VideoCardProps) => {
   const { selectedVideo, setSelectedVideo } = useVideo();
   const isSelected = selectedVideo?.id === video.id;
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isSelected && cardRef.current) {
+      cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [isSelected]);
   const formattedDate = new Date(video.contentDetails.videoPublishedAt).toLocaleDateString('pt-BR', {
     day: '2-digit',
     month: 'short',
@@ -16,8 +24,9 @@ export const VideoCard = ({ video }: VideoCardProps) => {
 
   return (
     <div
-      className={`bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer ${
-        isSelected ? 'ring-4 ring-blue-500' : ''
+      ref={cardRef}
+      className={`bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer ${
+        isSelected ? 'ring-4 ring-blue-500 scale-105' : ''
       }`}
       onClick={() => setSelectedVideo(video)}
     >
