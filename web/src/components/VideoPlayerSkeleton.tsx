@@ -1,6 +1,11 @@
 export const VideoPlayerSkeleton = () => {
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden animate-pulse">
+    <div
+      className="bg-white rounded-lg shadow-lg overflow-hidden animate-pulse"
+      role="status"
+      aria-label="Loading video player"
+      aria-busy="true"
+    >
       <div className="aspect-video bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
       <div className="p-6 space-y-4">
         <div className="space-y-3">
@@ -14,6 +19,7 @@ export const VideoPlayerSkeleton = () => {
           <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 rounded w-2/3"></div>
         </div>
       </div>
+      <span className="sr-only">Loading video information...</span>
     </div>
   );
 };
