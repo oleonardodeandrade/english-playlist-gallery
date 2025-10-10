@@ -30,7 +30,7 @@ export const Home = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
+      <header className="bg-white shadow-sm" role="banner">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <h1 className="text-3xl font-bold text-gray-900">English Playlist Gallery</h1>
           <p className="mt-2 text-gray-600">
@@ -39,21 +39,25 @@ export const Home = () => {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" role="main">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+          <div
+            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6"
+            role="alert"
+            aria-live="assertive"
+          >
             {error}
           </div>
         )}
 
-        <div className="mb-8">
+        <section className="mb-8" aria-label="Main video player">
           <VideoPlayer loading={loading} />
-        </div>
+        </section>
 
-        <div>
+        <section aria-label="Video gallery">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Video Gallery</h2>
           <VideoList videos={videos || []} loading={loading} />
-        </div>
+        </section>
       </main>
     </div>
   );
