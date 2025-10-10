@@ -45,7 +45,7 @@ export const VideoPlayer = ({ loading = false }: VideoPlayerProps) => {
   const videoUrl = `https://www.youtube.com/watch?v=${selectedVideo.snippet.resourceId.videoId}`;
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden animate-fade-in">
       <div className="aspect-video">
         <ReactPlayer
           src={videoUrl}
