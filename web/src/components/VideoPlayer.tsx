@@ -15,13 +15,18 @@ export const VideoPlayer = ({ loading = false }: VideoPlayerProps) => {
 
   if (!selectedVideo) {
     return (
-      <div className="aspect-video bg-gray-900 rounded-lg flex items-center justify-center">
+      <section
+        className="aspect-video bg-gray-900 rounded-lg flex items-center justify-center"
+        role="status"
+        aria-label="No video selected"
+      >
         <div className="text-center text-white">
           <svg
             className="mx-auto h-16 w-16 text-gray-500 mb-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -38,15 +43,18 @@ export const VideoPlayer = ({ loading = false }: VideoPlayerProps) => {
           </svg>
           <p className="text-lg font-medium">Select a video to start watching</p>
         </div>
-      </div>
+      </section>
     );
   }
 
   const videoUrl = `https://www.youtube.com/watch?v=${selectedVideo.snippet.resourceId.videoId}`;
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden animate-fade-in">
-      <div className="aspect-video">
+    <article
+      className="bg-white rounded-lg shadow-lg overflow-hidden animate-fade-in"
+      aria-label={`Now playing: ${selectedVideo.snippet.title}`}
+    >
+      <div className="aspect-video" role="region" aria-label="Video player">
         <ReactPlayer
           src={videoUrl}
           width="100%"
@@ -56,18 +64,20 @@ export const VideoPlayer = ({ loading = false }: VideoPlayerProps) => {
         />
       </div>
       <div className="p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">{selectedVideo.snippet.description}</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">{selectedVideo.snippet.title}</h2>
         <p className="text-gray-600 text-sm mb-4">
-          {new Date(selectedVideo.contentDetails.videoPublishedAt).toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
-          })}
+          <time dateTime={selectedVideo.contentDetails.videoPublishedAt}>
+            {new Date(selectedVideo.contentDetails.videoPublishedAt).toLocaleDateString('en-US', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+            })}
+          </time>
         </p>
         {selectedVideo.snippet.description && (
           <p className="text-gray-700 whitespace-pre-line">{selectedVideo.snippet.description}</p>
         )}
       </div>
-    </div>
+    </article>
   );
 };
