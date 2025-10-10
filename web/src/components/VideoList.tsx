@@ -44,8 +44,10 @@ export const VideoList = ({ videos, loading = false }: VideoListProps) => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {videos?.map((video) => (
-        <VideoCard key={video.id} video={video} />
+      {videos?.map((video, index) => (
+        <div key={video.id} className="animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
+          <VideoCard video={video} />
+        </div>
       ))}
     </div>
   );
