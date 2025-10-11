@@ -22,15 +22,17 @@ services:
         value: 50
       - key: MONGODB_URI
         sync: false
+      - key: CORS_ORIGIN
+        sync: false
     healthCheckPath: /api/health
 
-  # Test API (feat/deployment-setup branch)
+  # Staging API (develop branch)
   - type: web
-    name: english-playlist-api-test
+    name: english-playlist-api-staging
     runtime: node
     region: oregon
     plan: free
-    branch: feat/deployment-setup
+    branch: develop
     rootDir: api
     buildCommand: npm install --include=dev && npm run build
     startCommand: npm start
@@ -46,5 +48,7 @@ services:
       - key: NUMBER_OF_VIDEOS
         value: 50
       - key: MONGODB_URI
+        sync: false
+      - key: CORS_ORIGIN
         sync: false
     healthCheckPath: /api/health
