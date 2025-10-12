@@ -1,0 +1,54 @@
+services:
+  # Production API (main branch)
+  - type: web
+    name: english-playlist-api
+    runtime: node
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: api
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: YOUTUBE_API_KEY
+        sync: false
+      - key: PLAYLIST_ID
+        sync: false
+      - key: NUMBER_OF_VIDEOS
+        value: 50
+      - key: MONGODB_URI
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+    healthCheckPath: /api/health
+
+  # Staging API (develop branch)
+  - type: web
+    name: english-playlist-api-staging
+    runtime: node
+    region: oregon
+    plan: free
+    branch: develop
+    rootDir: api
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: staging
+      - key: PORT
+        value: 3000
+      - key: YOUTUBE_API_KEY
+        sync: false
+      - key: PLAYLIST_ID
+        sync: false
+      - key: NUMBER_OF_VIDEOS
+        value: 50
+      - key: MONGODB_URI
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+    healthCheckPath: /api/health
