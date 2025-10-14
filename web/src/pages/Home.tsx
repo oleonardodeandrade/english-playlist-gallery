@@ -9,6 +9,7 @@ export const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [syncing, setSyncing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const loadVideos = async () => {
@@ -42,6 +43,10 @@ export const Home = () => {
       setSyncing(false);
     }
   };
+
+  const filteredVideos = videos?.filter((video) =>
+    video.snippet.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -96,8 +101,20 @@ export const Home = () => {
         </section>
 
         <section aria-label="Video gallery">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Video Gallery</h2>
-          <VideoList videos={videos || []} loading={loading} />
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-900">Video Gallery</h2>
+            <div className="w-full max-w-sm min-w-[200px]">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                placeholder="Search videos"
+                aria-label="Search videos"
+              />
+            </div>
+          </div>
+          <VideoList videos={filteredVideos || []} loading={loading} />
         </section>
       </main>
     </div>
