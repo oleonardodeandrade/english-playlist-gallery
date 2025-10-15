@@ -1,4 +1,6 @@
-export const VideoCardSkeleton = () => {
+import { memo } from 'react';
+
+const VideoCardSkeletonComponent = () => {
   return (
     <div
       className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse opacity-70"
@@ -18,3 +20,5 @@ export const VideoCardSkeleton = () => {
     </div>
   );
 };
+
+export const VideoCardSkeleton = memo(VideoCardSkeletonComponent);

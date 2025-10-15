@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { VideoPlaylistItem } from '../types/video.types';
 import { VideoCard } from './VideoCard';
 import { VideoCardSkeleton } from './VideoCardSkeleton';
@@ -7,7 +8,7 @@ interface VideoListProps {
   loading?: boolean;
 }
 
-export const VideoList = ({ videos, loading = false }: VideoListProps) => {
+const VideoListComponent = ({ videos, loading = false }: VideoListProps) => {
   if (loading) {
     return (
       <section aria-label="Loading videos" aria-busy="true">
@@ -64,3 +65,5 @@ export const VideoList = ({ videos, loading = false }: VideoListProps) => {
     </section>
   );
 };
+
+export const VideoList = memo(VideoListComponent);

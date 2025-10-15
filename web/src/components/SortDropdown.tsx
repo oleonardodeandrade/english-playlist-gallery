@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { SortOption } from '../types/video.types';
 
 interface SortDropdownProps {
@@ -5,7 +6,7 @@ interface SortDropdownProps {
   onChange: (value: SortOption) => void;
 }
 
-export const SortDropdown = ({ value, onChange }: SortDropdownProps) => {
+const SortDropdownComponent = ({ value, onChange }: SortDropdownProps) => {
   return (
     <div className="relative">
       <label htmlFor="sort-select" className="sr-only">
@@ -43,3 +44,5 @@ export const SortDropdown = ({ value, onChange }: SortDropdownProps) => {
     </div>
   );
 };
+
+export const SortDropdown = memo(SortDropdownComponent);
