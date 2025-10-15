@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, memo } from 'react';
 import { useVideo } from '../hooks/useVideo';
 import { useFavorites } from '../hooks/useFavorites';
 import type { VideoPlaylistItem } from '../types/video.types';
@@ -7,7 +7,7 @@ interface VideoCardProps {
   video: VideoPlaylistItem;
 }
 
-export const VideoCard = ({ video }: VideoCardProps) => {
+const VideoCardComponent = ({ video }: VideoCardProps) => {
   const { selectedVideo, setSelectedVideo } = useVideo();
   const { toggleFavorite, isFavorite } = useFavorites();
   const isSelected = selectedVideo?.id === video.id;
@@ -93,3 +93,5 @@ export const VideoCard = ({ video }: VideoCardProps) => {
     </div>
   );
 };
+
+export const VideoCard = memo(VideoCardComponent);
