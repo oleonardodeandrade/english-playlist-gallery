@@ -121,12 +121,12 @@ export const Home = () => {
         </section>
 
         <section aria-label="Video gallery">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Video Gallery</h2>
               <button
                 onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors w-fit ${
                   showFavoritesOnly
                     ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
@@ -144,11 +144,11 @@ export const Home = () => {
                 </span>
               </button>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="w-full max-w-[200px]">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <div className="w-full sm:w-auto sm:min-w-[200px]">
                 <SortDropdown value={sortOption} onChange={setSortOption} />
               </div>
-              <div className="w-full max-w-sm min-w-[200px]">
+              <div className="w-full sm:w-auto sm:min-w-[200px] sm:max-w-sm">
                 <input
                   type="text"
                   value={searchQuery}
