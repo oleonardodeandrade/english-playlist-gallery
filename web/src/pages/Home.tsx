@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { VideoList } from '../components/VideoList';
 import { VideoPlayer } from '../components/VideoPlayer';
 import { SortDropdown } from '../components/SortDropdown';
+import { DarkModeToggle } from '../components/DarkModeToggle';
 import { useFavorites } from '../hooks/useFavorites';
 import { apiClient } from '../services/api';
 import { sortVideos } from '../utils/sortVideos';
@@ -65,22 +66,24 @@ export const Home = () => {
   }, [videos, searchQuery, sortOption, showFavoritesOnly, favorites]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm" role="banner">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+      <header className="bg-white dark:bg-gray-800 shadow-sm transition-colors" role="banner">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">English Playlist Gallery</h1>
-              <p className="mt-2 text-gray-600">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">English Playlist Gallery</h1>
+              <p className="mt-2 text-gray-600 dark:text-gray-300">
                 Interactive video gallery to help you learn English
               </p>
             </div>
-            <button
-              onClick={handleSync}
-              disabled={syncing || loading}
-              className="pl-8 pr-12 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center gap-3 text-base font-medium"
-              aria-label="Sync playlist with YouTube"
-            >
+            <div className="flex items-center gap-3">
+              <DarkModeToggle />
+              <button
+                onClick={handleSync}
+                disabled={syncing || loading}
+                className="pl-8 pr-12 py-4 bg-blue-600 dark:bg-blue-700 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors flex items-center gap-3 text-base font-medium"
+                aria-label="Sync playlist with YouTube"
+              >
               <svg
                 className={`w-5 h-5 ${syncing ? 'animate-spin' : ''}`}
                 fill="none"
@@ -95,8 +98,9 @@ export const Home = () => {
                   d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                 />
               </svg>
-              {syncing ? 'Syncing' : 'Sync Playlist'}
-            </button>
+                {syncing ? 'Syncing' : 'Sync Playlist'}
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -104,7 +108,7 @@ export const Home = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" role="main">
         {error && (
           <div
-            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6"
+            className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-6 transition-colors"
             role="alert"
             aria-live="assertive"
           >
@@ -119,13 +123,13 @@ export const Home = () => {
         <section aria-label="Video gallery">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
-              <h2 className="text-2xl font-bold text-gray-900">Video Gallery</h2>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Video Gallery</h2>
               <button
                 onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
                   showFavoritesOnly
-                    ? 'bg-red-100 text-red-700 hover:bg-red-200'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
                 aria-label={showFavoritesOnly ? 'Show all videos' : 'Show favorites only'}
               >
@@ -149,7 +153,7 @@ export const Home = () => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                  className="w-full bg-transparent placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-700 dark:text-slate-200 text-sm border border-slate-200 dark:border-slate-600 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 dark:focus:border-slate-500 hover:border-slate-300 dark:hover:border-slate-500 shadow-sm focus:shadow"
                   placeholder="Search videos"
                   aria-label="Search videos"
                 />

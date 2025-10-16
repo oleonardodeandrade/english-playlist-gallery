@@ -1,11 +1,14 @@
 import { VideoProvider } from './contexts/VideoContext';
+import { DarkModeProvider } from './contexts/DarkModeContext';
 import { Home } from './pages/Home';
 
 function App() {
   return (
-    <VideoProvider>
-      <Home />
-    </VideoProvider>
+    <DarkModeProvider>
+      <VideoProvider>
+        <Home />
+      </VideoProvider>
+    </DarkModeProvider>
   );
 }
 
