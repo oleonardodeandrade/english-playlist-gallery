@@ -49,13 +49,13 @@ const VideoCardComponent = ({ video }: VideoCardProps) => {
       tabIndex={0}
       aria-label={`Watch video: ${video.snippet.title}, published on ${formattedDate}`}
       aria-pressed={isSelected}
-      className={`bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer ${
-        isSelected ? 'ring-4 ring-blue-500 scale-105' : ''
+      className={`bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer ${
+        isSelected ? 'ring-4 ring-blue-500 dark:ring-blue-400 scale-105' : ''
       }`}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
     >
-      <div className="relative aspect-video bg-gray-100">
+      <div className="relative aspect-video bg-gray-100 dark:bg-gray-700">
         <img
           src={video.snippet.thumbnails.high.url}
           alt={video.snippet.title}
@@ -65,11 +65,11 @@ const VideoCardComponent = ({ video }: VideoCardProps) => {
         <button
           onClick={handleFavoriteClick}
           aria-label={isFav ? 'Remove from favorites' : 'Add to favorites'}
-          className="absolute top-2 right-2 p-2 bg-white/90 hover:bg-white rounded-full shadow-lg transition-all duration-200 hover:scale-110 active:scale-95"
+          className="absolute top-2 right-2 p-2 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 rounded-full shadow-lg transition-all duration-200 hover:scale-110 active:scale-95"
         >
           <svg
             className={`w-5 h-5 transition-colors ${
-              isFav ? 'fill-red-500 stroke-red-500' : 'fill-none stroke-gray-700'
+              isFav ? 'fill-red-500 stroke-red-500' : 'fill-none stroke-gray-700 dark:stroke-gray-300'
             }`}
             viewBox="0 0 24 24"
             strokeWidth={2}
@@ -83,10 +83,10 @@ const VideoCardComponent = ({ video }: VideoCardProps) => {
         </button>
       </div>
       <div className="p-4">
-        <h3 className="font-semibold text-gray-900 line-clamp-2 mb-2">
+        <h3 className="font-semibold text-gray-900 dark:text-white line-clamp-2 mb-2">
           {video.snippet.title}
         </h3>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           {formattedDate}
         </p>
       </div>
