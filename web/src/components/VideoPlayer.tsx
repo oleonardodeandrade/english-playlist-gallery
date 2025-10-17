@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import ReactPlayer from 'react-player';
 import { useVideo } from '../hooks/useVideo';
 import { VideoPlayerSkeleton } from './VideoPlayerSkeleton';
@@ -6,7 +7,7 @@ interface VideoPlayerProps {
   loading?: boolean;
 }
 
-export const VideoPlayer = ({ loading = false }: VideoPlayerProps) => {
+const VideoPlayerComponent = ({ loading = false }: VideoPlayerProps) => {
   const { selectedVideo } = useVideo();
 
   if (loading) {
@@ -16,13 +17,13 @@ export const VideoPlayer = ({ loading = false }: VideoPlayerProps) => {
   if (!selectedVideo) {
     return (
       <section
-        className="aspect-video bg-gray-900 rounded-lg flex items-center justify-center"
+        className="aspect-video bg-gray-900 dark:bg-gray-950 rounded-lg flex items-center justify-center transition-colors"
         role="status"
         aria-label="No video selected"
       >
         <div className="text-center text-white">
           <svg
-            className="mx-auto h-16 w-16 text-gray-500 mb-4"
+            className="mx-auto h-16 w-16 text-gray-500 dark:text-gray-600 mb-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -51,7 +52,7 @@ export const VideoPlayer = ({ loading = false }: VideoPlayerProps) => {
 
   return (
     <article
-      className="bg-white rounded-lg shadow-lg overflow-hidden animate-fade-in"
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden animate-fade-in transition-colors"
       aria-label={`Now playing: ${selectedVideo.snippet.title}`}
     >
       <div className="aspect-video" role="region" aria-label="Video player">
@@ -64,8 +65,8 @@ export const VideoPlayer = ({ loading = false }: VideoPlayerProps) => {
         />
       </div>
       <div className="p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">{selectedVideo.snippet.title}</h2>
-        <p className="text-gray-600 text-sm mb-4">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{selectedVideo.snippet.title}</h2>
+        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
           <time dateTime={selectedVideo.contentDetails.videoPublishedAt}>
             {new Date(selectedVideo.contentDetails.videoPublishedAt).toLocaleDateString('en-US', {
               day: '2-digit',
@@ -75,9 +76,11 @@ export const VideoPlayer = ({ loading = false }: VideoPlayerProps) => {
           </time>
         </p>
         {selectedVideo.snippet.description && (
-          <p className="text-gray-700 whitespace-pre-line">{selectedVideo.snippet.description}</p>
+          <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line">{selectedVideo.snippet.description}</p>
         )}
       </div>
     </article>
   );
 };
+
+export const VideoPlayer = memo(VideoPlayerComponent);

@@ -55,3 +55,5 @@ export interface VideoPlaylistResponse {
   items: VideoPlaylistItem[];
   pageInfo: VideoPageInfo;
 }
+
+export type SortOption = 'position' | 'date' | 'title';
