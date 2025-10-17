@@ -68,44 +68,44 @@ export const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       <header className="bg-white dark:bg-gray-800 shadow-sm transition-colors" role="banner">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">English Playlist Gallery</h1>
-              <p className="mt-2 text-gray-600 dark:text-gray-300">
+        <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex-1">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">English Playlist Gallery</h1>
+              <p className="mt-2 text-sm sm:text-base text-gray-600 dark:text-gray-300">
                 Interactive video gallery to help you learn English
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 self-start sm:self-auto">
               <DarkModeToggle />
               <button
                 onClick={handleSync}
                 disabled={syncing || loading}
-                className="pl-8 pr-12 py-4 bg-blue-600 dark:bg-blue-700 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors flex items-center gap-3 text-base font-medium"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                 aria-label="Sync playlist with YouTube"
               >
-              <svg
-                className={`w-5 h-5 ${syncing ? 'animate-spin' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                />
-              </svg>
-                {syncing ? 'Syncing' : 'Sync Playlist'}
+                <svg
+                  className={`w-5 h-5 ${syncing ? 'animate-spin' : ''}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
+                <span className="text-sm font-medium">{syncing ? 'Syncing' : 'Sync Playlist'}</span>
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" role="main">
+      <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-8" role="main">
         {error && (
           <div
             className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-lg mb-6 transition-colors"
@@ -121,12 +121,12 @@ export const Home = () => {
         </section>
 
         <section aria-label="Video gallery">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Video Gallery</h2>
               <button
                 onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors w-fit ${
                   showFavoritesOnly
                     ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 hover:bg-red-200 dark:hover:bg-red-900/50'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
@@ -144,11 +144,11 @@ export const Home = () => {
                 </span>
               </button>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="w-full max-w-[200px]">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <div className="w-full sm:w-auto sm:min-w-[200px]">
                 <SortDropdown value={sortOption} onChange={setSortOption} />
               </div>
-              <div className="w-full max-w-sm min-w-[200px]">
+              <div className="w-full sm:w-auto sm:min-w-[200px] sm:max-w-sm">
                 <input
                   type="text"
                   value={searchQuery}
